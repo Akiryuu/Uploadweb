@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{%block title%}Login{%endblock title%}
+
+{%block obsah %}
+
+<div class="a">
+<h1>Jsi již přihlášen</h1>
+<a href="{{ url_for('logout') }}">Odhlásit se</a>
+</div>
+{% endblock obsah %}

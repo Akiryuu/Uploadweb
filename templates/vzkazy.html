@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{%block title%}vzkazy{%endblock title%}
+
+{% block obsah %}
+<h1>Vzkazy</h1>
+
+<form method="post">
+    <h2>Vložit vzkaz</h2>
+    <textarea name='vzkaz' rows='7' cols='80'></textarea>
+    <p>
+        <button type='submit'>Odeslat</button>
+        <button type='reset'>Vymazat</button>
+    </p>
+</form>
+
+<h2>Nástěnka</h2>
+{%for username, body, datetime, id in response%}
+<div class="vzkaz">
+    <p class="head"> <strong>{{username}}</strong> {{ current_time }}</p>
+    {%if session['user']==username%}
+    <form action="{{url_for('vymaz_vzkaz')}}" method="post">
+        <input type="hidden" name="id" value="{{id}}">
+        <button type="submit">Vymazat</button>
+    </form>
+    <form action="{{url_for('editovat', _id=id)}}" method="get">
+        <button type="submit">Editovat</button>
+    </form>
+    {%endif%}
+    <pre class="body">{{body}}</pre>
+</div>
+{%endfor%}
+{% endblock obsah %}
